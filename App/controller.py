@@ -216,12 +216,23 @@ def sortBooksByYear(control, year, rank, memflag=True):
     en un año ordenados por rating
     """
     # TODO lab 7, completar cambios para medir tiempo y memoria
-    pass
-
+    books = None # toma el tiempo al inicio del proceso 
+    start_time = getTime()# inicializa el proceso
+    if memflag is True:
+        tracemalloc.start()
+        start_memory = getMemory()
+    books = model.sortBooksByYear(control['model'], year, rank)
 
 # Funciones para medir tiempos de ejecucion
-
-
+    stop_time = getTime()
+    delta_time = deltaTime(stop_time, start_time)
+    if memflag is True:
+        stop_memory = getMemory()
+        tracemalloc.stop() 
+        delta_memory = deltaMemory(stop_memory, start_memory)
+        return books, delta_time, delta_memory
+    else:
+        return books, delta_time
 def getTime():
     """
     devuelve el instante tiempo de procesamiento en milisegundos
